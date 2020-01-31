@@ -1,33 +1,31 @@
-from PIL import Image, ImageDraw, ImageFont
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from easyparty import settings
+from .facade import make_invite
 from .models import Invite
 
 
-def list_invites(request):
-    invites = Invite.objects.all()
+@login_required
+def invites_list(request):
+    all_invites = Invite.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(all_invites, 10)
+    try:
+        invites = paginator.page(page)
+    except PageNotAnInteger:
+        invites = paginator.page(1)
+    except EmptyPage:
+        invites = paginator.page(paginator.num_pages)
     return render(request, 'invitation/invites.html', context={'invites': invites})
 
 
-def download_invite(request, pk):
-    invite = Invite.objects.get(pk=pk)
-    content = invite.name + str(invite.date)
-    image = Image.open(f'{settings.STATIC_ROOT}/convites/convite-revelacao.jpg')
-    draw = ImageDraw.Draw(image)
-
-    font_title = ImageFont.truetype(f'{settings.STATIC_ROOT}/fonts/Magneton-Bold.ttf', 70)
-    w, h = draw.textsize(content, font=font_title)
-
-    draw.text(
-        ((1180 - w) / 2, 700),
-        text=content,
-        fill='#000',
-        font=font_title
-    )
+def invite_download_jpg(request, pk):
+    content = make_invite(pk=pk)
 
     response = HttpResponse(content_type='image/jpeg')
-    response['Content-Disposition'] = f'attachment; filename={invite.name}-{invite.date}.jpg'
-    image.save(response, 'JPEG')
+    response['Content-Disposition'] = f'attachment; filename={content.file_name}-{content.date}.jpg'
+    content.image.save(response, 'JPEG')
     return response

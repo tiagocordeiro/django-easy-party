@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% block title %}Convites{% endblock %}
+
+{% block extra_css %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -11,8 +16,8 @@
                     <caption>Convites</caption>
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Nome</th>
+                        <th scope="col" style="text-align: center;">Festa</th>
                         <th scope="col" style="text-align: center;">Data</th>
                         <th scope="col" style="text-align: center;">Hora</th>
                         <th scope="col"></th>
@@ -21,17 +26,53 @@
                     <tbody>
                     {% for invite in invites %}
                         <tr>
-                            <th scope="row">{{ invite.pk }}</th>
-                            <td class="align-middle" style="text-align: left; white-space: nowrap;">{{ invite.name }}</td>
-                            <td class="align-middle" style="text-align: center; white-space: nowrap;">{{ invite.date }}</td>
+                            <th class="align-middle" style="white-space: nowrap;" scope="row">{{ invite.name }}</th>
+                            <td class="align-middle" style="text-align: center;">
+                                {% if invite.gender == 1 %}
+                                    <span class="badge badge-pill" style="background-color: #17a2b8;">{{ invite.get_gender_display }}</span>
+                                {% elif invite.gender == 2 %}
+                                    <span class="badge badge-pill" style="background-color: #e83e8c;">{{ invite.get_gender_display }}</span>
+                                {% else %}
+                                    <span class="badge badge-pill" style="background-color: #ffc107;">{{ invite.get_gender_display }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="align-middle" style="white-space: nowrap; text-align: center;">{{ invite.date }}</td>
                             <td class="align-middle" style="text-align: center;">{{ invite.start_time }}</td>
-                            <td class="align-middle" style="text-align: right;">
-                                <a href="{% url 'download_invite' pk=invite.pk %}" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">Download</a>
+                            <td class="align-middle" style="white-space: nowrap; text-align: right;">
+                                <a href="#" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">
+                                    <i class="material-icons" style="font-size: inherit;">edit</i>
+                                </a>
+                                <a href="{% url 'invite_download_jpg' pk=invite.pk %}" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">Download</a>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
+{#                {% if invites.has_other_pages %}#}
+            <nav aria-label="Search results pages">
+                    <ul class="pagination">
+                        {% if invites.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{ invites.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                        {% for i in invites.paginator.page_range %}
+                            {% if invites.number == i %}
+                                <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if invites.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ invites.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+            </nav>
+{#                {% endif %}#}
+
             </div>
         </div>
     </div>
