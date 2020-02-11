@@ -1,6 +1,7 @@
 import locale
 
 from PIL import Image, ImageDraw, ImageFont
+from django.templatetags.static import static
 from django.utils.text import slugify
 
 from easyparty import settings
@@ -11,12 +12,15 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
-    invite.image = Image.open(f'{settings.STATIC_ROOT}/convites/convite.jpg')
+    image_file = open(static('convites/convite.jpg'))
+    invite.image = Image.open(image_file)
     draw = ImageDraw.Draw(invite.image)
     invite.date_string = invite.date.strftime("%d • %B • %Y")
 
-    font_title = ImageFont.truetype(f'{settings.STATIC_ROOT}/fonts/Amatic-Bold.ttf', 170)
-    font_body = ImageFont.truetype(f'{settings.STATIC_ROOT}/fonts/Roboto-Medium.ttf', 70)
+    file_font_title = open(static('fonts/Amatic-Bold.ttf'))
+    file_font_body = open(static('fonts/Roboto-Medium.ttf'))
+    font_title = ImageFont.truetype(file_font_title, 170)
+    font_body = ImageFont.truetype(file_font_body, 70)
     w_title, h_title = draw.textsize(invite.name, font=font_title)
     w_date, h_date = draw.textsize(invite.date_string, font=font_body)
 
