@@ -2,7 +2,6 @@ import locale
 
 from PIL import Image, ImageDraw, ImageFont
 from django.utils.text import slugify
-from django.templatetags.static import static
 
 from easyparty import settings
 from .models import Invite
