@@ -10,7 +10,7 @@ addons:
   postgresql: '9.5'
   apt:
     packages:
-      - language-pack-pt_br
+      - language-pack-pt_BR
       # command to install dependencies
 install:
   - cp contrib/env-sample-travis-ci .env
