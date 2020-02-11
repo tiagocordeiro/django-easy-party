@@ -6,12 +6,12 @@ services:
 env:
   global:
     - DJANGO_SETTINGS_MODULE="easyparty.settings"
-addons:
-  postgresql: '9.5'
-  apt:
-    packages:
-      - language-pack-pt_BR
-      # command to install dependencies
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install language-pack-pt
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 9.5
+# command to install dependencies
 install:
   - cp contrib/env-sample-travis-ci .env
   - pip install -r requirements-dev.txt codecov
