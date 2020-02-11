@@ -6,8 +6,7 @@ from django.utils.text import slugify
 from easyparty import settings
 from .models import Invite
 
-locale.setlocale(locale.LC_ALL, 'pt_BR')
-
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
