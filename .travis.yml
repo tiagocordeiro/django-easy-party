@@ -8,7 +8,10 @@ env:
     - DJANGO_SETTINGS_MODULE="easyparty.settings"
 addons:
   postgresql: '9.5'
-# command to install dependencies
+  apt:
+    packages:
+      - language-pack-pt_br
+      # command to install dependencies
 install:
   - cp contrib/env-sample-travis-ci .env
   - pip install -r requirements-dev.txt codecov
