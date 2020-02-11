@@ -8,6 +8,7 @@ from .models import Invite
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
+
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
     invite.image = Image.open(f'{settings.STATIC_ROOT}/convites/convite.jpg')
