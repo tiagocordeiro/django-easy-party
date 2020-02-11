@@ -31,3 +31,7 @@ class GuestInvite(models.Model):
         ordering = ('name',)
         verbose_name_plural = "convidados"
         verbose_name = "convidado"
+
+
+class InviteTemplate(Active, TimeStampedModel):
+    name = models.CharField('Nome', max_length=50)

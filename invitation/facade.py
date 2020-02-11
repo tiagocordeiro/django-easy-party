@@ -12,6 +12,8 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
+    print(static('convites/convite.jpg'))
+    print(f'{settings.STATIC_ROOT}/convites/convite.jpg')
     invite.image = Image.open(static('convites/convite.jpg'))
     draw = ImageDraw.Draw(invite.image)
     invite.date_string = invite.date.strftime("%d • %B • %Y")
