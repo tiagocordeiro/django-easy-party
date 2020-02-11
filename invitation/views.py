@@ -2,7 +2,7 @@ from io import BytesIO
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponse
+from django.http import FileResponse
 from django.shortcuts import render
 
 from .facade import make_invite
@@ -26,10 +26,11 @@ def invites_list(request):
 
 def invite_download_jpg(request, pk):
     content = make_invite(pk=pk)
-
     byte = BytesIO()
-    content.image.save(byte, 'JPEG')
 
-    response = HttpResponse(byte.getvalue(), content_type='image/jpeg')
+    content.image.save(byte, 'JPEG')
+    byte.seek(0)
+
+    response = FileResponse(byte, 'rb')
     response['Content-Disposition'] = f'attachment; filename={content.file_name}-{content.date}.jpg'
     return response
