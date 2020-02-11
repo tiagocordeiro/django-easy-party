@@ -12,13 +12,14 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
-    image_file = open(static('convites/convite.jpg'))
+    print(static('convites/convite.jpg'))
+    image_file = open(static('convites/convite.jpg')).read()
     invite.image = Image.open(image_file)
     draw = ImageDraw.Draw(invite.image)
     invite.date_string = invite.date.strftime("%d • %B • %Y")
 
-    file_font_title = open(static('fonts/Amatic-Bold.ttf'))
-    file_font_body = open(static('fonts/Roboto-Medium.ttf'))
+    file_font_title = open(static('fonts/Amatic-Bold.ttf')).read()
+    file_font_body = open(static('fonts/Roboto-Medium.ttf')).read()
     font_title = ImageFont.truetype(file_font_title, 170)
     font_body = ImageFont.truetype(file_font_body, 70)
     w_title, h_title = draw.textsize(invite.name, font=font_title)
