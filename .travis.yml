@@ -5,8 +5,11 @@ services:
   postgresql
 env:
   global:
+    - PLUGIN_NAME=Locale
     - DJANGO_SETTINGS_MODULE="easyparty.settings"
     - LC_ALL="pt_BR.UTF-8"
+before_install:
+  - sudo locale-gen --no-purge --lang pt_BR.UTF-8
 addons:
   postgresql: '9.5'
 # command to install dependencies
