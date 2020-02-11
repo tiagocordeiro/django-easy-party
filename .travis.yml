@@ -8,7 +8,7 @@ env:
     - DJANGO_SETTINGS_MODULE="easyparty.settings"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install language-pack-pt
+  - sudo apt-get install language-pack-pt_BR
   - sudo /etc/init.d/postgresql stop
   - sudo /etc/init.d/postgresql start 9.5
 # command to install dependencies
