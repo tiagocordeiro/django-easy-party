@@ -12,9 +12,9 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def make_invite(pk):
     invite = Invite.objects.get(pk=pk)
-    invite_image = open(invite.invite_template.background_image.url)
-    invite_font_title = open(invite.invite_template.title_font.url)
-    invite_font_body = open(invite.invite_template.body_font.url)
+    invite_image = open(invite.invite_template.background_image.url).read()
+    invite_font_title = open(invite.invite_template.title_font.url).read()
+    invite_font_body = open(invite.invite_template.body_font.url).read()
     print(invite_font_body)
     print(invite_font_title)
     print(invite_image)
