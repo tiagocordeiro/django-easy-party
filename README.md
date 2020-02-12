@@ -4,7 +4,6 @@
 [![Python 3](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/python-3-shield.svg)](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/)
 [![Python 3.8.1](https://img.shields.io/badge/python-3.8.1-blue.svg)](https://www.python.org/downloads/release/python-381/)
 [![Django 3.0.3](https://img.shields.io/badge/django-3.0.3-blue.svg)](https://www.djangoproject.com/download/)
-[![Build Status](https://travis-ci.org/tiagocordeiro/django-easy-party.svg?branch=master)](https://travis-ci.org/tiagocordeiro/django-easy-party)
 [![codecov](https://codecov.io/gh/tiagocordeiro/django-easy-party/branch/master/graph/badge.svg)](https://codecov.io/gh/tiagocordeiro/django-easy-party)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tiagocordeiro/django-easy-party/blob/master/LICENSE)
 
