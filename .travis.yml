@@ -22,4 +22,4 @@ script:
   - flake8 .
   - coverage run manage.py test -v 2
 after_success:
-#  - codecov
+  - codecov

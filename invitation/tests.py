@@ -5,7 +5,7 @@ from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
 
 from invitation.models import Invite
-from invitation.views import invite_download_jpg
+from invitation.views import invite_download_jpg, invites_list
 
 
 class InvitationTestCase(TestCase):
@@ -31,14 +31,15 @@ class InvitationTestCase(TestCase):
                              target_status_code=200)
 
     def test_view_for_invites_list_with_logged_user(self):
-        self.client.force_login(self.user_staff)
-        request = self.client.get(reverse('invites_list'))
+        request = self.factory.get(reverse('invites_list'))
+        request.user = self.user_staff
 
-        self.assertEqual(request.status_code, 200)
+        response = invites_list(request)
+        self.assertEqual(response.status_code, 200)
 
     def test_invite_download_view_status_code(self):
-        self.client.logout()
-        request = self.client.get(reverse('invite_download_jpg', args={self.invite_brian.pk}))
+        request = self.factory.get(reverse('invite_download_jpg', args={self.invite_brian.pk}))
+        request.user = self.user_staff
 
         response = invite_download_jpg(request, pk=self.invite_brian.pk)
         self.assertEqual(response.status_code, 200)
