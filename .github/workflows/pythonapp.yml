@@ -33,7 +33,7 @@ jobs:
     - name: Lint with flake8 and pycodestyle
       run: |
         flake8 .
-        pycodestyle.
+        pycodestyle .
     - name: Test with coverage
       run: |
         coverage run manage.py test -v 2
