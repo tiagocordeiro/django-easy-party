@@ -27,8 +27,8 @@ jobs:
         cp contrib/env-sample .env
     - name: Install dependencies
       run: |
-        sudo update-locale LANG=pt_BR.UTF-8
         sudo apt-get install libpq-dev
+        locale-gen pt_BR.utf-8
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt codecov
     - name: Lint with flake8 and pycodestyle
