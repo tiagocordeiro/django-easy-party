@@ -17,7 +17,7 @@ jobs:
         ports: ['5432:5432']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
     - name: Set up Python 3.8
       uses: actions/setup-python@v1
       with:
@@ -27,18 +27,29 @@ jobs:
         cp contrib/env-sample .env
     - name: Install dependencies
       run: |
+        sudo locale-gen pt_BR.UTF-8
+        # dpkg-reconfigure locales
+        # update-locale LANG=pt_BR.UTF-8
         sudo apt-get install libpq-dev
-        locale-gen pt_BR.utf-8
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt codecov
-    - name: Lint with flake8 and pycodestyle
+    - name: Lint with flake8
       run: |
         flake8 .
+    - name: Pycodestyle
+      run: |
         pycodestyle .
+    - name: Migrate
+      run: |
+        python manage.py migrate --noinput
+    - name: Collectstatic
+      run: |
+        python manage.py collectstatic --noinput
     - name: Test with coverage
+      env:
+        DJANGO_SETTINGS_MODULE: "easyparty.settings"
       run: |
         coverage run manage.py test -v 2
-        - name: Posting Coverage
     - name: Posting Coverage
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

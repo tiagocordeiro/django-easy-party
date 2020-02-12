@@ -1,13 +1,13 @@
 from datetime import date
 
 from django.contrib.auth.models import User, Group
-from django.test import TestCase, RequestFactory, Client
+from django.test import RequestFactory, Client, TransactionTestCase
 from django.urls import reverse
 
 from invitation.models import Invite
 
 
-class InvitationTestCase(TestCase):
+class InvitationTestCase(TransactionTestCase):
     def setUp(self):
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
@@ -21,6 +21,12 @@ class InvitationTestCase(TestCase):
         self.invite_brian = Invite.objects.create(name='Brian', age=12, gender=1, date=date.today(), start_time='18:00',
                                                   end_time='21:00', maximum_guests=33)
 
+    def test_view_for_invites_list_with_logged_user(self):
+        self.client.force_login(self.user_staff)
+        request = self.client.get(reverse('invites_list'))
+
+        self.assertEqual(request.status_code, 200)
+
     def test_view_for_invites_list_with_non_logged_user(self):
         self.client.logout()
         request = self.client.get(reverse('invites_list'))
@@ -30,12 +36,6 @@ class InvitationTestCase(TestCase):
                              '/accounts/login/?next=/invites/',
                              status_code=302,
                              target_status_code=200)
-
-    def test_view_for_invites_list_with_logged_user(self):
-        self.client.force_login(self.user_staff)
-        request = self.client.get(reverse('invites_list'))
-
-        self.assertEqual(request.status_code, 200)
 
     def test_invite_download_view_status_code(self):
         self.client.logout()
