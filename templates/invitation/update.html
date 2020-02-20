@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Convites{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Novo convite</h2>
+        </div>
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="col-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message|safe }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %}
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ form.errors }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="id_name">Nome</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_age">Idade</label>
+                    {{ form.age }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_gender">Tipo</label>
+                    {{ form.gender }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="id_date">Data</label>
+                    {{ form.date }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_start_time">Início</label>
+                    {{ form.start_time }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_end_time">Termino</label>
+                    {{ form.end_time }}
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="id_maximum_guests">Convidados</label>
+                    {{ form.maximum_guests }}
+                </div>
+            </div>
+            <a href="{% url 'invites_list' %}" class="btn btn-secondary mt-2"><i class="far fa-window-close"></i> Cancelar</a>
+            <button class="btn btn-success mt-2"><i class="far fa-save"></i> Salvar</button>
+        </form>
+
+    </div>
+{% endblock content %}
+{% block extra_js %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js" integrity="sha256-O4r2M4p1dxfVFgKvwK23D1RQdTU8ABlIBir9aGP+KJY=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#id_date").inputmask("99/99/9999", {"placeholder": "DD/MM/AAAA"});
+            $("#id_start_time").inputmask("99:99", {"placeholder": "HH:MM"});
+            $("#id_end_time").inputmask("99:99", {"placeholder": "HH:MM"});
+        });
+    </script>
+
+{% endblock %}
