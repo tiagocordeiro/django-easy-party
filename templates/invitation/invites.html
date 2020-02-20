@@ -2,13 +2,32 @@
 {% block title %}Convites{% endblock %}
 
 {% block extra_css %}
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <div class="row">
-            <h2>Convites</h2>
+            <div class="col md-6">
+                <h2>Convites</h2>
+            </div>
+            <div class="col md-6">
+                <button class="btn btn-success float-right"><i class="far fa-plus-square"></i> Novo</button>
+            </div>
+        </div>
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="col-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message|safe }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
         <div class="row">
             <div class="table-responsive">
@@ -39,41 +58,57 @@
                             <td class="align-middle" style="white-space: nowrap; text-align: center;">{{ invite.date }}</td>
                             <td class="align-middle" style="text-align: center;">{{ invite.start_time }}</td>
                             <td class="align-middle" style="white-space: nowrap; text-align: right;">
-                                <a href="#" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">
-                                    <i class="material-icons" style="font-size: inherit;">edit</i>
+                                <a href="{% url 'invite_update' pk=invite.pk %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Editar">
+                                    <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{% url 'invite_download_jpg' pk=invite.pk %}" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">Download</a>
+                                <a href="{% url 'invite_share' pk=invite.pk %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Compartilhar">
+                                    <i class="fas fa-share"></i>
+                                </a>
+                                <a href="{% url 'invite_download_jpg' pk=invite.pk %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Download">
+                                    <i class="fas fa-file-download"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
 
-{#                {% if invites.has_other_pages %}#}
-            <nav aria-label="Search results pages">
+                {#                {% if invites.has_other_pages %}#}
+                <nav aria-label="Search results pages">
                     <ul class="pagination">
                         {% if invites.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page={{ invites.previous_page_number }}">&laquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ invites.previous_page_number }}">&laquo;</a>
+                            </li>
                         {% else %}
                             <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
                         {% endif %}
                         {% for i in invites.paginator.page_range %}
                             {% if invites.number == i %}
-                                <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                                </li>
                             {% else %}
                                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                             {% endif %}
                         {% endfor %}
                         {% if invites.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ invites.next_page_number }}">&raquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ invites.next_page_number }}">&raquo;</a>
+                            </li>
                         {% else %}
                             <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
                         {% endif %}
                     </ul>
-            </nav>
-{#                {% endif %}#}
+                </nav>
+                {#                {% endif %}#}
 
             </div>
         </div>
     </div>
 {% endblock content %}
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endblock %}

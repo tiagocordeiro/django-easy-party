@@ -22,7 +22,7 @@ admin.site.site_header = 'DjangoEasyParty'
 
 urlpatterns = [
     path('', include('core.urls')),
-    path('invites/', include('invitation.urls')),
+    path('', include('invitation.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
