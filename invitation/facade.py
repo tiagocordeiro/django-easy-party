@@ -10,9 +10,9 @@ from .models import Invite
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 
-def make_invite(pk):
+def make_invite(pk, slug):
     template_dir = os.path.abspath(settings.BASE_DIR + '/templates/modelos/')
-    invite = Invite.objects.get(pk=pk)
+    invite = Invite.objects.get(pk=pk, slug=slug)
 
     invite.image = Image.open(f'{template_dir}/convites/convite.jpg')
     draw = ImageDraw.Draw(invite.image)

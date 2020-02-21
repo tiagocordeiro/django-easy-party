@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Olá, você foi convidado para minha festa</title>
-    <meta property="og:title" content="Olá, você foi convidado para minha festa - saiba mais: {{ url }}"/>
-    <meta property="og:description" content="Descrição - saiba mais: {{ url }}"/>
+    <meta property="og:title" content="Olá, quero te convidar para minha festa"/>
+    <meta property="og:description" content="data {{ invite.date }} a partir das {{ invite.start_time }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:site_name" content="Espaço Boo!">
     <meta property="og:url" content="{{ url }}"/>
@@ -45,7 +45,12 @@
         <div class="col d-flex justify-content-center">
             <div class="card" style="max-width: 480px">
                 <div class="card-img-caption">
-                    <img class="card-img-top" src="{% url 'invite_download_jpg' pk=invite.pk %}" alt="Background image" style="width:100%">
+                    <img class="card-img-top" src="{% url 'invite_download_jpg' pk=invite.pk slug=invite.slug %}" alt="Background image" style="width:100%">
+                </div>
+                <div class="container d-flex justify-content-around">
+                    <a target="_blank" class="btn btn-success my-4" href="https://goo.gl/maps/ShXSMDdU6rttJniX6" role="button"><i class="fas fa-map-marker"></i>
+                        Como chegar
+                    </a>
                 </div>
             </div>
         </div>

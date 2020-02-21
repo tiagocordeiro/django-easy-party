@@ -45,11 +45,15 @@
         <div class="col d-flex justify-content-center">
             <div class="card" style="max-width: 480px">
                 <div class="card-img-caption">
-                    <img class="card-img-top" src="{% url 'invite_download_jpg' pk=invite.pk %}" alt="Background image" style="width:100%">
+                    <img class="card-img-top" src="{% url 'invite_download_jpg' pk=invite.pk slug=invite.slug %}" alt="Background image" style="width:100%">
                 </div>
-                <div class="container d-flex justify-content-around">
-                    <a class="btn btn-success my-4" href="https://api.whatsapp.com/send?text=Olá, quero te convidar para minha festa, aqui está seu convite {{ url }}" role="button"><i class="fab fa-whatsapp"></i>
-                        Compartilhar</a>
+                <div class="container d-flex justify-content-between">
+                    <a class="btn btn-primary my-4" href="{{ request.META.HTTP_REFERER }}" role="button"><i class="fas fa-chevron-circle-left"></i>
+                        Voltar
+                    </a>
+                    <a class="btn btn-success my-4" href="https://api.whatsapp.com/send?text=Gostaria muito da sua presença, aqui está seu convite {{ url }}" role="button"><i class="fab fa-whatsapp"></i>
+                        Compartilhar
+                    </a>
                 </div>
             </div>
         </div>

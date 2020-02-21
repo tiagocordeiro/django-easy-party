@@ -12,7 +12,7 @@
                 <h2>Convites</h2>
             </div>
             <div class="col md-6">
-                <button class="btn btn-success float-right"><i class="far fa-plus-square"></i> Novo</button>
+                <a href="{% url 'invite_create' %}" class="btn btn-success float-right"><i class="fas fa-plus-circle"></i> Novo</a>
             </div>
         </div>
         <div class="row">
@@ -64,7 +64,10 @@
                                 <a href="{% url 'invite_share' pk=invite.pk %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Compartilhar">
                                     <i class="fas fa-share"></i>
                                 </a>
-                                <a href="{% url 'invite_download_jpg' pk=invite.pk %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Download">
+                                <a href="{% url 'invite_public' pk=invite.pk slug=invite.slug %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Link">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                                <a href="{% url 'invite_download_jpg' pk=invite.pk slug=invite.slug %}" class="btn btn-sm btn-outline-info" role="button" aria-pressed="true" data-toggle="tooltip" data-placement="top" title="Download">
                                     <i class="fas fa-file-download"></i>
                                 </a>
                             </td>

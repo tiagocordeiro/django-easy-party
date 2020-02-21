@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from core.models import Active, TimeStampedModel
@@ -34,6 +36,10 @@ class InviteTemplate(Active, TimeStampedModel):
         verbose_name_plural = 'modelos'
 
 
+def make_slug():
+    return str(uuid.uuid4())
+
+
 class Invite(Active, TimeStampedModel):
     GENDER_CHOICES = (
         (0, 'Chá Revelação'),
@@ -48,6 +54,7 @@ class Invite(Active, TimeStampedModel):
     end_time = models.TimeField('Hora de termino')
     maximum_guests = models.PositiveIntegerField('Máximo de Convidados')
     invite_template = models.ForeignKey(InviteTemplate, on_delete=models.CASCADE, blank=True, null=True)
+    slug = models.CharField(max_length=36, default=make_slug())
 
     class Meta:
         ordering = ('date', 'start_time', 'name',)
