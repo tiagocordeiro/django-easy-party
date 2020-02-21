@@ -39,6 +39,48 @@ class InvitationTestCase(TransactionTestCase):
 
     def test_invite_download_view_status_code(self):
         self.client.logout()
-        request = self.client.get(reverse('invite_download_jpg', args={self.invite_brian.pk}))
+        request = self.client.get(reverse('invite_download_jpg',
+                                          kwargs={'pk': self.invite_brian.pk,
+                                                  'slug': self.invite_brian.slug}))
 
         self.assertEqual(request.status_code, 200)
+
+    def test_invite_create_view_with_logged_user(self):
+        self.client.force_login(self.user_staff)
+        request = self.client.get(reverse('invite_create'))
+
+        self.assertEqual(request.status_code, 200)
+
+    def test_invite_create_view_with_non_logged_user(self):
+        self.client.logout()
+        request = self.client.get(reverse('invite_create'))
+
+        self.assertEqual(request.status_code, 302)
+        self.assertRedirects(request,
+                             '/accounts/login/?next=/invite/create/',
+                             status_code=302,
+                             target_status_code=200)
+
+    def test_invite_create_new(self):
+        invites = Invite.objects.all()
+        self.assertEqual(len(invites), 1)
+        self.assertEqual(Invite.objects.count(), 1)
+
+        new_invite = {
+            'name': 'Baby Yoda',
+            'age': '104',
+            'gender': 1,
+            'date': '01/12/2020',
+            'start_time': '19:00',
+            'end_time': '21:00',
+            'maximum_guests': '30',
+        }
+
+        self.client.force_login(self.user_staff)
+
+        response = self.client.post(reverse('invite_create'), data=new_invite)
+        self.assertEqual(response.status_code, 302)
+
+        invites = Invite.objects.all()
+        self.assertEqual(len(invites), 2)
+        self.assertEqual(Invite.objects.count(), 2)

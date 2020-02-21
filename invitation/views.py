@@ -65,8 +65,8 @@ def invites_list(request):
     return render(request, 'invitation/invites.html', context={'invites': invites})
 
 
-def invite_download_jpg(request, pk):
-    content = make_invite(pk=pk)
+def invite_download_jpg(request, pk, slug):
+    content = make_invite(pk=pk, slug=slug)
     byte = BytesIO()
 
     content.image.save(byte, 'JPEG')
@@ -80,13 +80,13 @@ def invite_download_jpg(request, pk):
 @login_required
 def invite_share(request, pk):
     invite = get_object_or_404(Invite, pk=pk)
-    url = request.build_absolute_uri(reverse('invite_public', kwargs={'pk': pk}))
+    url = request.build_absolute_uri(reverse('invite_public', kwargs={'pk': invite.pk, 'slug': invite.slug}))
 
     return render(request, 'invitation/share.html', {'invite': invite,
                                                      'url': url})
 
 
-def invite_public(request, pk):
-    invite = get_object_or_404(Invite, pk=pk)
+def invite_public(request, pk, slug):
+    invite = get_object_or_404(Invite, pk=pk, slug=slug)
 
     return render(request, 'invitation/public.html', {'invite': invite})
