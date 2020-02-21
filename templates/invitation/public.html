@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Olá, você foi convidado para minha festa</title>
     <meta property="og:title" content="Olá, você foi convidado para minha festa - saiba mais: {{ url }}"/>
     <meta property="og:description" content="Descrição - saiba mais: {{ url }}"/>
@@ -41,8 +42,8 @@
 <body>
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            <div class="card">
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="max-width: 480px">
                 <div class="card-img-caption">
                     <img class="card-img-top" src="{% url 'invite_download_jpg' pk=invite.pk %}" alt="Background image" style="width:100%">
                 </div>
