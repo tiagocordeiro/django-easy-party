@@ -2,8 +2,8 @@
 
 [![Updates](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/shield.svg)](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/)
 [![Python 3](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/python-3-shield.svg)](https://pyup.io/repos/github/tiagocordeiro/django-easy-party/)
-[![Python 3.8.1](https://img.shields.io/badge/python-3.8.1-blue.svg)](https://www.python.org/downloads/release/python-381/)
-[![Django 3.0.3](https://img.shields.io/badge/django-3.0.3-blue.svg)](https://www.djangoproject.com/download/)
+[![Python 3.8.2](https://img.shields.io/badge/python-3.8.2-blue.svg)](https://www.python.org/downloads/release/python-382/)
+[![Django 3.0.4](https://img.shields.io/badge/django-3.0.4-blue.svg)](https://www.djangoproject.com/download/)
 ![Python application](https://github.com/tiagocordeiro/django-easy-party/workflows/Python%20application/badge.svg)
 [![codecov](https://codecov.io/gh/tiagocordeiro/django-easy-party/branch/master/graph/badge.svg)](https://codecov.io/gh/tiagocordeiro/django-easy-party)
 [![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/tiagocordeiro/django-easy-party/blob/master/LICENSE)
