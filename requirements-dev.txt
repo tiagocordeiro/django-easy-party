@@ -1,5 +1,5 @@
 # Coverage
-coverage==5.0.3
+coverage==5.1
 
 # Code Style
 pycodestyle==2.5.0
