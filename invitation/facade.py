@@ -14,7 +14,7 @@ def make_invite(pk, slug):
     template_dir = os.path.abspath(settings.BASE_DIR + '/templates/modelos/')
     invite = Invite.objects.get(pk=pk, slug=slug)
 
-    invite.image = Image.open(f'{template_dir}/convites/convite.jpg')
+    invite.image = Image.open(invite.invite_template.background_image)
     draw = ImageDraw.Draw(invite.image)
     invite.date_string = invite.date.strftime("%d • %B • %Y")
 
