@@ -9,7 +9,7 @@ class GuestsInline(admin.StackedInline):
 
 
 class InviteAdmin(admin.ModelAdmin):
-    list_display = ('name', 'gender', 'age', 'date', 'maximum_guests')
+    list_display = ('name', 'invite_template', 'age', 'date', 'maximum_guests')
     inlines = [
         GuestsInline,
     ]
