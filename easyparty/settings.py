@@ -148,14 +148,22 @@ if 'DYNO' in os.environ:
 CLOUDINARY_URL = config('CLOUDINARY_URL', default=False)
 
 if CLOUDINARY_URL:  # pragma: no cover
-    INSTALLED_APPS.append("cloudinary")
+    INSTALLED_APPS.remove('django.contrib.staticfiles')
+    INSTALLED_APPS = [
+        'cloudinary_storage',
+        'django.contrib.staticfiles',
+        'cloudinary',
+    ] + INSTALLED_APPS
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': config('CLOUDINARY_NAME'),
         'API_KEY': config('CLOUDINARY_API_KEY'),
         'API_SECRET': config('CLOUDINARY_API_SECRET')
     }
 
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    COLLECTFAST_ENABLED = False
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 # STORAGE CONFIGURATION IN S3 AWS
 # -----------------------------------------------------------------------------
@@ -188,10 +196,10 @@ if AWS_ACCESS_KEY_ID:  # pragma: no cover
     control = f"max-age={AWS_EXPIRY:d}, s-maxage={AWS_EXPIRY:d}, must-revalidate"
 
     # Upload Media Folder
-    # DEFAULT_FILE_STORAGE = "s3_folder_storage.s3.DefaultStorage"
-    # DEFAULT_S3_PATH = "media"
-    # MEDIA_ROOT = f"/{DEFAULT_S3_PATH}/"
-    # MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{DEFAULT_S3_PATH}/"
+    DEFAULT_FILE_STORAGE = "s3_folder_storage.s3.DefaultStorage"
+    DEFAULT_S3_PATH = "media"
+    MEDIA_ROOT = f"/{DEFAULT_S3_PATH}/"
+    MEDIA_URL = f"//{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{DEFAULT_S3_PATH}/"
 
     # Static Assets
     # -------------------------------------------------------------------------
