@@ -27,7 +27,6 @@ urlpatterns = [
     path('', include('invitation.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
