@@ -10,4 +10,8 @@ flake8==3.8.4
 mccabe==0.6.1
 pyflakes==2.2.0
 
+# Dev utils
+django-debug-toolbar==3.1.1
+django-extensions==3.0.9
+
 -r requirements.txt
