@@ -25,4 +25,4 @@ dj3-cloudinary-storage==0.0.3
 django-s3-folder-storage==0.5
 
 # Sentry
-sentry-sdk==0.18.0
+sentry-sdk==0.20.2
