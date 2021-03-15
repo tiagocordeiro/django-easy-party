@@ -2,7 +2,7 @@
 coverage==5.3
 
 # Code Style
-pycodestyle==2.6.0
+pycodestyle==2.7.0
 
 # Flake8
 entrypoints==0.3
