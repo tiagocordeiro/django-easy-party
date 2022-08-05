@@ -2,7 +2,7 @@
 coverage==5.5
 
 # Code Style
-flake8==3.9.2
+flake8==5.0.4
 
 # Dev utils
 django-debug-toolbar==3.2.1
